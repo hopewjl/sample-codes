@@ -1,0 +1,2 @@
+mvn generate-resources -Dasciidoctor.attributes=toc=right
+mvn mybatis-generator:generate

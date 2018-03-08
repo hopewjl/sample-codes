@@ -1,0 +1,19 @@
+= APP apply API
+王晶磊 <wangjinglei>
+v1.0, 2018-02-28
+:toc: left
+
+== 接口地址
+|===
+| 环境 | URL前缀
+| test
+| http://
+
+| prod
+| https://
+|===
+
+== 接口说明
+
+=== 创建APP
+operation::appApply[snippets='http-request,request-headers,path-parameters,request-fields,http-response,response-fields']
