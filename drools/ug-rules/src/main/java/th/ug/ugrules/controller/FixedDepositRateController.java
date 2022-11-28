@@ -1,10 +1,12 @@
 package th.ug.ugrules.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.kie.api.definition.type.FactType;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +31,8 @@ public class FixedDepositRateController {
         kieSession.dispose();
         return fdRequest;
     }
-    @RequestMapping(value = "/declare/test", method = RequestMethod.GET, produces = "application/json")
-    public Object getQuestions(@RequestParam(required = true) String name) {
+    @RequestMapping(value = "/declare/test", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getQuestions(@RequestParam(required = true) String name) {
         try{
             KieSession kieSession = kieDeclareContainer.newKieSession();
             // get the declared FactType
@@ -41,7 +43,12 @@ public class FixedDepositRateController {
             kieSession.insert(bob);
             kieSession.fireAllRules();
             kieSession.dispose();
-            return bob ;
+            ObjectMapper mapper = new ObjectMapper();
+            String res = mapper.writeValueAsString(bob);
+            ObjectMapper mapper1 = new ObjectMapper();
+            Object o2= mapper1.readValue(res,bob.getClass());
+
+            return res ;
         }catch (Exception e){
             return "{\"msg\":"+"\"" + e.toString() +"\"}";
         }
