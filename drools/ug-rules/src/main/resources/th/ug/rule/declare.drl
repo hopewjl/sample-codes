@@ -23,4 +23,5 @@ rule "Using a rule unit with a declared type"
     address.setCity("Shenzhen");
     address.setStreetName("Aiguo");
     $p.setAddress(address);
+    $p.setDateOfBirth();
 end
